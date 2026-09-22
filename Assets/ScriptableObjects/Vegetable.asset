@@ -18,3 +18,5 @@ MonoBehaviour:
   prepTime: 2
   rawColor: {r: 0.105882354, g: 0.36862746, b: 0.1254902, a: 1}
   preparedColor: {r: 0.4862745, g: 0.9882353, b: 0, a: 1}
+  burnTime: 0
+  burntColor: {r: 0.15, g: 0.1, b: 0.08, a: 1}

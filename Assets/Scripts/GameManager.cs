@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float gameDuration = 180f;
     [Tooltip("Testing only: skips the menu. Turn OFF before submitting.")]
     [SerializeField] private bool autoStartForTesting;
+    [Tooltip("An order delivered within this many seconds of appearing counts toward the combo streak.")]
+    [SerializeField] private float fastDeliveryThreshold = 14f;
 
     private const string HighScoreKey = "yeschef.highscore";
 
@@ -22,10 +24,12 @@ public class GameManager : MonoBehaviour
     public int HighScore { get; private set; }
     public bool IsNewHighScore { get; private set; }
     public bool IsPlaying => State == GameState.Playing;
+    public int Combo { get; private set; }
 
     public event Action GameStarted;            // a fresh round begins: everything resets itself
     public event Action<GameState> StateChanged;
     public event Action<int> ScoreChanged;
+    public event Action<int> ComboChanged;
 
     private void Awake()
     {
@@ -59,7 +63,9 @@ public class GameManager : MonoBehaviour
         Score = 0;
         IsNewHighScore = false;
         TimeRemaining = gameDuration;
+        Combo = 0;
         ScoreChanged?.Invoke(Score);
+        ComboChanged?.Invoke(Combo);
         GameStarted?.Invoke();
         SetState(GameState.Playing);
     }
@@ -68,6 +74,27 @@ public class GameManager : MonoBehaviour
     {
         Score += points;
         ScoreChanged?.Invoke(Score);
+    }
+
+    // Called by a CustomerWindow when an order is fully delivered.
+    // Fast deliveries build a combo streak that multiplies the score.
+    public int RegisterDelivery(int baseScore, float elapsedSeconds)
+    {
+        bool fast = elapsedSeconds <= fastDeliveryThreshold;
+        Combo = fast ? Combo + 1 : 0;
+        ComboChanged?.Invoke(Combo);
+
+        float multiplier = 1f + Mathf.Min(Combo, 5) * 0.25f;
+        int finalScore = Mathf.Max(0, Mathf.RoundToInt(baseScore * multiplier));
+        AddScore(finalScore);
+        return finalScore;
+    }
+
+    // Called when a customer's patience runs out. Breaks the combo streak.
+    public void RegisterMiss()
+    {
+        Combo = 0;
+        ComboChanged?.Invoke(Combo);
     }
 
     public void TogglePause()
