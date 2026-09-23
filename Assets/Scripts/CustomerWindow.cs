@@ -28,7 +28,7 @@ public class Order
         filled = new bool[count];
         for (int i = 0; i < count; i++)
             required[i] = pool[Random.Range(0, pool.Length)];   // duplicates allowed
-        MaxPatience = 22f + count * 9f;
+        MaxPatience = 26f + count * 10f;
     }
 
     public bool IsFilled(int index) => filled[index];
