@@ -219,7 +219,7 @@ public class Station : MonoBehaviour, IInteractable
         slot.itemVisual.gameObject.SetActive(slot.item != null);
         slot.progressRoot.SetActive(slot.item != null && !slot.item.IsPrepared);
         slot.progressFill.fillAmount = 0f;
-        if (slot.item != null) slot.itemVisual.material.color = slot.item.CurrentColor;
+        ItemVisualUtil.Apply(slot.itemVisual.transform, slot.itemVisual, slot.item);
     }
 
     private void ResetStation()

@@ -18,3 +18,7 @@ MonoBehaviour:
   prepTime: 0
   rawColor: {r: 1, g: 0.8392157, b: 0, a: 1}
   preparedColor: {r: 1, g: 0.8392157, b: 0, a: 1}
+  burnTime: 6
+  burntColor: {r: 0.15, g: 0.1, b: 0.08, a: 1}
+  rawModelPrefab: {fileID: 2453520243267579825, guid: 521989b602aae4349b01c233d27a8d40, type: 3}
+  preparedModelPrefab: {fileID: 0}

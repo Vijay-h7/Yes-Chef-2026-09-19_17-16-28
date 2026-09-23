@@ -67,7 +67,7 @@ public class Chef : MonoBehaviour
     {
         if (heldVisual == null) return;
         heldVisual.gameObject.SetActive(Held != null);
-        if (Held != null) heldVisual.material.color = Held.CurrentColor;
+        ItemVisualUtil.Apply(heldVisual.transform, heldVisual, Held);
     }
 
     // ---- Movement ----
