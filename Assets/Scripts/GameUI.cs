@@ -39,8 +39,22 @@ public class GameUI : MonoBehaviour
         game.StateChanged += OnStateChanged;
         game.ScoreChanged += OnScoreChanged;
 
+        ApplyCozyTheme();
+
         OnScoreChanged(game.Score);
         OnStateChanged(game.State);
+    }
+
+    private void ApplyCozyTheme()
+    {
+        Color teal = new Color(0.18f, 0.49f, 0.49f);
+        Color red = new Color(0.85f, 0.31f, 0.20f);
+        Color cream = new Color(0.97f, 0.95f, 0.91f);
+
+        if (startButton != null) startButton.GetComponent<Image>().color = teal;
+        if (resumeButton != null) resumeButton.GetComponent<Image>().color = teal;
+        if (restartButton != null) restartButton.GetComponent<Image>().color = teal;
+        if (quitButton != null) quitButton.GetComponent<Image>().color = red;
     }
 
     private void OnDestroy()

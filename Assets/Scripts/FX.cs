@@ -119,4 +119,42 @@ public static class FX
         ps.Play();
         Object.Destroy(go, 2f);
     }
+
+    public static void SparkleBurst(Vector3 worldPos)
+    {
+        Color gold = new Color(1f, 0.85f, 0.3f, 1f);
+        Color white = new Color(1f, 1f, 0.9f, 1f);
+        var go = new GameObject("SparkleBurstFX");
+        go.transform.position = worldPos;
+        var ps = go.AddComponent<ParticleSystem>();
+        var main = ps.main;
+        main.loop = false;
+        main.startLifetime = 0.8f;
+        main.startSpeed = 2.2f;
+        main.startSize = new ParticleSystem.MinMaxCurve(0.12f, 0.25f);
+        main.startColor = new ParticleSystem.MinMaxGradient(gold, white);
+        main.gravityModifier = -0.1f;
+        main.simulationSpace = ParticleSystemSimulationSpace.World;
+
+        var emission = ps.emission;
+        emission.rateOverTime = 0f;
+        emission.SetBursts(new[] { new ParticleSystem.Burst(0f, (short)20) });
+
+        var shape = ps.shape;
+        shape.shapeType = ParticleSystemShapeType.Sphere;
+        shape.radius = 0.2f;
+
+        var col = ps.colorOverLifetime;
+        col.enabled = true;
+        var grad = new Gradient();
+        grad.SetKeys(
+            new[] { new GradientColorKey(gold, 0f), new GradientColorKey(white, 1f) },
+            new[] { new GradientAlphaKey(1f, 0f), new GradientAlphaKey(0f, 1f) });
+        col.color = grad;
+
+        ps.GetComponent<ParticleSystemRenderer>().material = GetMat();
+        ps.Play();
+        Object.Destroy(go, 1.5f);
+    }
 }
+

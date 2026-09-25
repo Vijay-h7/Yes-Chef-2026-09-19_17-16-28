@@ -28,6 +28,7 @@ public class Station : MonoBehaviour, IInteractable
 
     private AudioSource sfxSource;
     private bool sizzlePlaying;
+    private Light stoveGlowLight;
 
     private void Start()
     {
@@ -37,6 +38,19 @@ public class Station : MonoBehaviour, IInteractable
         sfxSource.spatialBlend = 1f;
         sfxSource.loop = true;
         sfxSource.volume = 0.45f;
+
+        if (type == StationType.Stove)
+        {
+            var lightGo = new GameObject("StoveGlowLight");
+            lightGo.transform.SetParent(transform, false);
+            lightGo.transform.localPosition = new Vector3(0f, 0.8f, 0f);
+            stoveGlowLight = lightGo.AddComponent<Light>();
+            stoveGlowLight.type = LightType.Point;
+            stoveGlowLight.color = new Color(1.0f, 0.45f, 0.15f);
+            stoveGlowLight.range = 3.5f;
+            stoveGlowLight.intensity = 0f;
+            stoveGlowLight.enabled = true;
+        }
 
         if (slots != null)
         {
@@ -76,6 +90,12 @@ public class Station : MonoBehaviour, IInteractable
 
         if (type == StationType.Stove)
         {
+            if (stoveGlowLight != null)
+            {
+                float targetIntensity = anyCooking ? 2.5f : 0f;
+                stoveGlowLight.intensity = Mathf.Lerp(stoveGlowLight.intensity, targetIntensity, Time.deltaTime * 8f);
+            }
+
             if (anyCooking && !sizzlePlaying)
             {
                 sfxSource.clip = AudioFX.SizzleLoop;

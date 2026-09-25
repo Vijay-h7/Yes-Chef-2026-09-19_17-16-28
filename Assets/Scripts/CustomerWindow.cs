@@ -149,6 +149,7 @@ public class CustomerWindow : MonoBehaviour, IInteractable
         int finalScore = GameManager.Instance.RegisterDelivery(baseScore, elapsed);
         AudioFX.PlayDing(transform.position);
         FX.ConfettiBurst(transform.position + Vector3.up * 1.2f);
+        FX.SparkleBurst(transform.position + Vector3.up * 1.5f);
         StartCoroutine(ShowPopup(finalScore, GameManager.Instance.Combo, false));
         StartCoroutine(RespawnAfterDelay());
     }
@@ -159,6 +160,7 @@ public class CustomerWindow : MonoBehaviour, IInteractable
         ShowOrder(null);
         GameManager.Instance.RegisterMiss();
         AudioFX.PlayMiss(transform.position);
+        FindAnyObjectByType<Chef>()?.TriggerFlustered();
         StartCoroutine(ShowPopup(0, 0, true));
         StartCoroutine(RespawnAfterDelay());
     }
