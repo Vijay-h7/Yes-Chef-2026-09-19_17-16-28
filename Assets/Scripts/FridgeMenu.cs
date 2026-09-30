@@ -57,7 +57,7 @@ public class FridgeMenu : MonoBehaviour
         options = choices;
         for (int i = 0; i < optionButtons.Length && i < choices.Length; i++)
         {
-            optionLabels[i].text = $"<b>{i + 1}   {choices[i].name}</b>\n<size=62%>{Hint(choices[i])}</size>";
+            optionLabels[i].text = $"<b>{i + 1}   {choices[i].DisplayName}</b>\n<size=62%>{Hint(choices[i])}</size>";
             optionSwatches[i].color = choices[i].rawColor;
         }
         openedFrame = Time.frameCount;
@@ -94,7 +94,7 @@ public class FridgeMenu : MonoBehaviour
     {
         switch (d.prepType)
         {
-            case PrepType.Chop: return $"Chop at the table ({d.prepTime:0}s)";
+            case PrepType.Chop: return $"Chop on the counter ({d.prepTime:0}s)";
             case PrepType.Cook: return $"Cook on the stove ({d.prepTime:0}s)";
             default: return "Ready to serve";
         }

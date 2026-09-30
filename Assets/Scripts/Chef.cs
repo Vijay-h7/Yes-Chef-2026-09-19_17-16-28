@@ -139,16 +139,25 @@ public class Chef : MonoBehaviour
             Transform anchor = activeChefModel.transform.Find("HeldItemAnchor");
             if (anchor == null)
             {
+                // The "Right Hand" node itself sits at a zero local offset (its mesh geometry carries the offset,
+                // not the transform), so we anchor at the hand's measured local position instead.
                 var newAnchor = new GameObject("HeldItemAnchor");
                 newAnchor.transform.SetParent(activeChefModel.transform, false);
-                newAnchor.transform.localPosition = new Vector3(0f, 1.0f, 0.55f);
+                newAnchor.transform.localPosition = new Vector3(-0.98f, 1.03f, 0.03f);  // right-hand mesh position, measured in the model's local space
                 anchor = newAnchor.transform;
             }
 
             if (heldVisual != null && anchor != null)
             {
+                Vector3 preservedLocalScale = heldVisual.transform.localScale;
                 heldVisual.transform.position = anchor.position;
+                heldVisual.transform.rotation = anchor.rotation;
                 heldVisual.transform.SetParent(anchor, true);
+                // SetParent(true) recomputes localScale to preserve world scale, which can collapse to
+                // (0,0,0) when the parent chain is both rotated and non-uniformly scaled. Restore the
+                // scale explicitly so this transform - and anything later parented under it, like a
+                // picked-up ingredient model - stays visible.
+                heldVisual.transform.localScale = preservedLocalScale;
             }
         }
 
@@ -247,7 +256,10 @@ public class Chef : MonoBehaviour
     {
         if (heldVisual == null) return;
         heldVisual.gameObject.SetActive(Held != null);
-        ItemVisualUtil.Apply(heldVisual.transform, heldVisual, Held);
+        // ItemVisualUtil now computes the held rotation directly from the chef's own facing
+        // direction (via heldExtraRotationEuler on IngredientData), so no extra correction is
+        // needed here - adding one would double up and cancel or distort it again.
+        ItemVisualUtil.Apply(heldVisual.transform, heldVisual, Held, isHeldByChef: true);
     }
 
     // ---- Movement ----

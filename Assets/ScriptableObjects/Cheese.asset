@@ -22,3 +22,6 @@ MonoBehaviour:
   burntColor: {r: 0.15, g: 0.1, b: 0.08, a: 1}
   rawModelPrefab: {fileID: 2453520243267579825, guid: 521989b602aae4349b01c233d27a8d40, type: 3}
   preparedModelPrefab: {fileID: 0}
+  heldExtraRotationEuler: {x: 0, y: 90, z: 0}
+  heldLocalPositionOffset: {x: 0, y: -0.65, z: -0.69}
+  displayName: Cheese

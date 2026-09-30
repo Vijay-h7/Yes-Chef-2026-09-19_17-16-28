@@ -28,6 +28,18 @@ public class IngredientData : ScriptableObject
         if (isPrepared && preparedModelPrefab != null) return preparedModelPrefab;
         return rawModelPrefab;
     }
+
+    [Header("Held-in-hand adjustment (optional)")]
+    [Tooltip("Extra rotation (degrees) applied on top of the model's authored pose, ONLY while the chef is holding it in hand - not on the table/stove.")]
+    public Vector3 heldExtraRotationEuler = Vector3.zero;
+
+    [Tooltip("Position offset (in the hand anchor's local space, same numbers you would type in the Transform Position of the held model) applied ONLY while the chef holds it.")]
+    public Vector3 heldLocalPositionOffset = Vector3.zero;
+
+    [Tooltip("Name shown in the UI (falls back to the asset name).")]
+    public string displayName;
+
+    public string DisplayName => string.IsNullOrEmpty(displayName) ? name : displayName;
 }
 
 // A runtime ingredient: what the chef holds, or what sits on a station.

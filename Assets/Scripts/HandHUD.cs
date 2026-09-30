@@ -25,7 +25,7 @@ public class HandHUD : MonoBehaviour
         shown = item;
         if (item == null)
         {
-            label.text = "HANDS: EMPTY";
+            label.text = "Holding: nothing";
             label.color = emptyColor;
             swatch.color = new Color(1f, 1f, 1f, 0.2f);
             return;
@@ -33,7 +33,7 @@ public class HandHUD : MonoBehaviour
 
         shownPrepared = item.IsPrepared;
         shownBurnt = item.IsBurnt;
-        label.text = $"HANDS: {item.Data.name.ToUpper()}{State(item)}";
+        label.text = $"Holding: {item.Data.DisplayName}{State(item)}";
         label.color = holdingColor;
         swatch.color = item.CurrentColor;
     }

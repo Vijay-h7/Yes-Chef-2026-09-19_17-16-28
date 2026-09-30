@@ -22,3 +22,6 @@ MonoBehaviour:
   burntColor: {r: 0.15, g: 0.1, b: 0.08, a: 1}
   rawModelPrefab: {fileID: 6379456981041683927, guid: 529c95fa7230803498f4591dedd5f602, type: 3}
   preparedModelPrefab: {fileID: 8924270222920896013, guid: 3ab6bc5f2379a9e48a4f96a5bc48b6da, type: 3}
+  heldExtraRotationEuler: {x: 0, y: 270, z: 0}
+  heldLocalPositionOffset: {x: 0.2, y: 0, z: -1.73}
+  displayName: Ham

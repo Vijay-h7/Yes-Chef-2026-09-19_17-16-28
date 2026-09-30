@@ -10,6 +10,17 @@ public class BistroEnvironmentBuilder : MonoBehaviour
     private static void AutoSetup()
     {
         if (_initialized) return;
+
+        // The exterior environment (deck, tables, lights, plants, fence) has been baked into the
+        // scene as real, persistent GameObjects/prefabs under "BistroEnvironment", visible in the
+        // Hierarchy at all times. Skip runtime generation entirely when that's present, so we don't
+        // spawn a duplicate, invisible-in-the-editor copy on top of it.
+        if (GameObject.Find("BistroEnvironment") != null)
+        {
+            _initialized = true;
+            return;
+        }
+
         var builder = FindAnyObjectByType<BistroEnvironmentBuilder>();
         if (builder == null)
         {
