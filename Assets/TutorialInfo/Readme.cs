@@ -1,16 +1,13 @@
-﻿using System;
+using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 
+// Stub: this was Unity's default new-project welcome/tutorial asset. It has no bearing on
+// Yes Chef's gameplay. Kept as an inert data container only so the pre-existing Readme.asset
+// doesn't become a broken/missing-script reference. See README.md at the project root for the
+// real project documentation.
 public class Readme : ScriptableObject
 {
-    public StyleSheet commonStyle;
-    public StyleSheet darkStyle;
-    public StyleSheet lightStyle;
-    public Texture2D icon;
     public string title;
-    public Section[] sections;
-    public bool loadedLayout;
 
     [Serializable]
     public class Section

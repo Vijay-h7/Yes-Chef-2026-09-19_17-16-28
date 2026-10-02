@@ -25,3 +25,4 @@ MonoBehaviour:
   heldExtraRotationEuler: {x: 0, y: 270, z: 0}
   heldLocalPositionOffset: {x: 0.2, y: 0, z: -1.73}
   displayName: Ham
+  icon: {fileID: 21300000, guid: ae771cea00c1f6e47b57b497e6750b06, type: 3}

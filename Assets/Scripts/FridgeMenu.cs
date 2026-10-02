@@ -58,7 +58,16 @@ public class FridgeMenu : MonoBehaviour
         for (int i = 0; i < optionButtons.Length && i < choices.Length; i++)
         {
             optionLabels[i].text = $"<b>{i + 1}   {choices[i].DisplayName}</b>\n<size=62%>{Hint(choices[i])}</size>";
-            optionSwatches[i].color = choices[i].rawColor;
+            if (choices[i].icon != null)
+            {
+                optionSwatches[i].sprite = choices[i].icon;
+                optionSwatches[i].color = Color.white;
+            }
+            else
+            {
+                optionSwatches[i].sprite = null;
+                optionSwatches[i].color = choices[i].rawColor;
+            }
         }
         openedFrame = Time.frameCount;
         panel.SetActive(true);

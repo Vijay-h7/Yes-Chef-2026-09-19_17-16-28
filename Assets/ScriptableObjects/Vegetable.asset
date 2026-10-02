@@ -25,3 +25,4 @@ MonoBehaviour:
   heldExtraRotationEuler: {x: 0, y: 90, z: 0}
   heldLocalPositionOffset: {x: 0, y: 0, z: -1}
   displayName: Carrot
+  icon: {fileID: 21300000, guid: 94a9972256127f0468cd901b58aa7d04, type: 3}
