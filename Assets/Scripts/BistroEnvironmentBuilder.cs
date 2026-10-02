@@ -15,7 +15,7 @@ public class BistroEnvironmentBuilder : MonoBehaviour
         // scene as real, persistent GameObjects/prefabs under "BistroEnvironment", visible in the
         // Hierarchy at all times. Skip runtime generation entirely when that's present, so we don't
         // spawn a duplicate, invisible-in-the-editor copy on top of it.
-        if (GameObject.Find("BistroSurroundings") != null || GameObject.Find("BistroEnvironment") != null)
+        if (GameObject.Find("BistroEnvironment") != null)
         {
             _initialized = true;
             return;

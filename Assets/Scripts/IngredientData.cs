@@ -40,10 +40,6 @@ public class IngredientData : ScriptableObject
     public string displayName;
 
     public string DisplayName => string.IsNullOrEmpty(displayName) ? name : displayName;
-
-    [Header("UI icon (optional)")]
-    [Tooltip("Shown on the fridge menu (and anywhere else that wants it) instead of a plain color, if assigned.")]
-    public Sprite icon;
 }
 
 // A runtime ingredient: what the chef holds, or what sits on a station.
